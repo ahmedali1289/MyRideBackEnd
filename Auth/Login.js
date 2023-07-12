@@ -11,8 +11,8 @@ router.use(bodyParser.json());
 
 // Login API route
 router.post('/', (req, res) => {
-  const { email, password } = req.body;
-
+  const { email, password } = req.query;
+  console.log(req.body);
   // Retrieve user data from the database
   const query = 'SELECT * FROM users WHERE email = ?';
   connection.query(query, [email], (err, results) => {

@@ -11,7 +11,7 @@ router.use(bodyParser.json());
 
 // Signup API route
 router.post('/', (req, res) => {
-  const { fName, lName, email, phone, password, role, otp } = req.body;
+  const { fName, lName, email, phone, password, role, otp } = req.query;
 
   // Validate email
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -28,9 +28,8 @@ router.post('/', (req, res) => {
       res.status(500).json({ error: 'Failed to retrieve OTP' });
       return;
     }
-
-    // Check if the fetched OTP matches the provided OTP
-    if (otpResults.length === 0 || otpResults[0].otp !== otp) {
+    
+    if (otpResults.length == 0 || otpResults[0].otp != otp) {
       res.status(400).json({ error: 'Invalid OTP' });
       return;
     }
